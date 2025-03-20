@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CompuKids</title>
+    <link rel="stylesheet" href="p1.css">
+    <script src="p1.js" defer></script> <!-- ربط ملف تغيير اللغة -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+</head>
+<body>
+
+    <div class="container">
+        <button id="langToggle" class="lang-button">
+            <i class="fas fa-globe"></i>
+        </button>
+        
+        <img src="img\giraffe.png" class="deer-image">
+        <br>
+        <img src="img\logo.png" class="deer-image">
+        <br>
+        <a href="p2.html">
+            <button class="start-button" data-translate="startButton">ابدأ الآن</button>
+        </a>
+    </div>
+
+    <link rel="manifest" href="manifest.json">
+<script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("service-worker.js")
+          .then(() => console.log("Service Worker Registered"));
+      }
+    </script> 
+
+</body>
+</html>

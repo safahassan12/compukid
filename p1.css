@@ -1,0 +1,63 @@
+
+        body {
+            background-color: #AC64BD; /* لون الخلفية */
+            display: flex;
+            flex-direction: column;
+            
+            justify-content: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        .container {
+            position: relative;
+        }
+
+        .logo {
+            font-size: 30px;
+            font-weight: bold;
+            color: #FFD700;
+            text-decoration: none;
+            display: block;
+            margin: 10px auto;
+            align-items: center;
+        }
+
+        .deer-image {
+            width: 250px;
+            border-radius: 15px;
+        }
+
+        .start-button {
+            background-color: #FF6600;
+            color: white;
+            font-size: 20px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .start-button:active {
+            transform: scale(0.9);
+        }
+    
+    
+    .lang-button {
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: #333;
+        position: absolute;
+        top: 480px;
+        left: 15px;
+        
+    }
+    
+   
+    
+    

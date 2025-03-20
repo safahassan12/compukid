@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+      
+    /* coding with nick */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500&display=swap');
+*{
+  box-sizing: border-box;
+}
+body{
+  background-color: #AC64BD;
+  font-family:  'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+}
+.quiz-container{
+  padding-top: 25px;
+  background-color:#e6e6e6;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 2px rgba(100, 100, 100, 0.1);
+  width: 320px;
+  height: 350px;
+  overflow: hidden;
+  
+}
+.quiz-header{
+  padding: 3 rem;
+}
+h2{
+  padding: .5rem;
+  text-align: center;
+  margin: 0;
+}
+ul{
+  list-style-type: none;
+  padding: 5;
+}
+ul li{
+  font-size: 1.4rem;
+  margin: 1rem 0;
+  margin-top: 20px;
+}
+ul li label{
+  cursor: pointer;
+}
+button{
+  background-color: #3e034b;
+  color: #fff;
+  border: none;
+  display: block;
+  color: white;
+  font-size: 20px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-family: inherit;
+  margin: 8px auto;
+  margin-top: 70px;
+}
+input[type="radio"] {
+    appearance: none; /* إخفاء الدائرة الافتراضية */
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgb(161, 92, 161);
+    border-radius: 50%; /* اجعلها دائرة، أو ضع 0 لجعلها مربع */
+    display: inline-block;
+    position: relative;
+}
+
+input[type="radio"]:checked {
+    background-color: rgb(61, 3, 61); /* لون عند التحديد */
+}
+button:hover{
+  background-color: #9557a3;
+}
+button:focus{
+  outline: none;
+  background-color: #632970;
+}
+
+#translateBtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 24px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #333;
+}
+ 
+    </style>
+</head>
+
+<body>
+ 
+
+  <div class="quiz-container" id="quiz">
+    <div class="quiz-header">
+      <h2 id="question">Question Text</h2>
+      <ul>
+        <li>
+          <input type="radio" name="answer" id="a" class="answer">
+          <label for="a" id="a_text">Answer</label>
+        </li>
+        <li>
+          <input type="radio" name="answer" id="b" class="answer">
+          <label for="b" id="b_text">Answer</label>
+        </li>
+      </ul>
+    </div>
+    <button id="submit">Submit</button>
+  </div>
+  <button id="translateBtn" onclick="translateText()">
+    <i class="fas fa-globe"></i>
+  </button>
+<script>
+  
+  const quizData = [
+      {
+        question: "What does the monitor do?", 
+        a: "Shows images", 
+        b: "Plays sounds", 
+        correct: "a",
+        question_ar: "ماذا يفعل الشاشة؟",
+        a_ar: "يعرض الصور",
+        b_ar: "يشغل الأصوات",
+      },
+      {
+        question: "What takes pictures and videos?", 
+        a: "Speakers", 
+        b: "Camera", 
+        correct: "b",
+        question_ar: "ما الذي يلتقط الصور والفيديو؟",
+        a_ar: "مكبرات الصوت", 
+        b_ar: "الكاميرا",
+      },
+      {
+        question: "What prints on paper?", 
+        a: "Keyboard", 
+        b: "Printer", 
+        correct: "b",
+        question_ar: "ما الذي يطبع على الورق؟",
+        a_ar: "لوحة المفاتيح", 
+        b_ar: "الطابعة",
+      },
+      {
+        question: "What plays sound?", 
+        a: "Printer", 
+        b: "Speakers", 
+        correct: "b",
+        question_ar: "ما الذي يشغل الصوت؟",
+        a_ar: "الطابعة", 
+        b_ar: "مكبرات الصوت",
+      },
+      {
+        question: "Which part makes the computer fast?", 
+        a: "CPU", 
+        b: "Camera", 
+        correct: "a",
+        question_ar: "أي جزء يجعل الكمبيوتر سريعاً؟",
+        a_ar: "وحدة المعالجة المركزية", 
+        b_ar: "الكاميرا",
+      }
+    ];
+
+    const quiz = document.getElementById('quiz');
+    const answerEls = document.querySelectorAll('.answer');
+    const questionEl = document.getElementById('question');
+    const a_text = document.getElementById('a_text');
+    const b_text = document.getElementById('b_text');
+    const submitBtn = document.getElementById('submit');
+    const translateBtn = document.getElementById('translateBtn');
+
+    let currentQuiz = 0;
+    let score = 0;
+    let isEnglish = true;
+
+    loadQuiz();
+
+    function loadQuiz() {
+      deselectAnswers();
+      const currentQuizData = quizData[currentQuiz];
+      questionEl.innerText = isEnglish ? currentQuizData.question : currentQuizData.question_ar;
+      a_text.innerText = isEnglish ? currentQuizData.a : currentQuizData.a_ar;
+      b_text.innerText = isEnglish ? currentQuizData.b : currentQuizData.b_ar;
+      submitBtn.innerText = isEnglish ? "Submit" : "إرسال";
+    }
+
+    function deselectAnswers() {
+      answerEls.forEach(answerEl => answerEl.checked = false);
+    }
+
+    function getSelected() {
+      let answer;
+      answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+          answer = answerEl.id;
+        }
+      });
+      return answer;
+    }
+
+    submitBtn.addEventListener('click', () => {
+      const answer = getSelected();
+      if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+          score++;
+        }
+        currentQuiz++;
+        if(currentQuiz < quizData.length) {
+          loadQuiz();
+        } else {
+          quiz.innerHTML = `
+            <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+            <button onclick="location.reload()">Reload</button>
+            <a href="basics.html">
+              <button class="continue-btn" onclick="continueAction()">Continue</button>
+            </a>
+          `;
+        }
+      }
+    });
+
+    function translateText() {
+      isEnglish = !isEnglish;
+      loadQuiz();
+    }
+ 
+</script>
+  
+
+</body>
+</html>

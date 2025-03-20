@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website</title>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&family=Nunito:wght@400;700&family=Fredoka+One&family=Quicksand:wght@400;600&family=Comic+Neue:wght@400;700&family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+</head>
+<body>
+<style>
+    /* إضافة الخلفية */
+    body {
+        background-image: url('p8back.png'); /* ضع رابط الخلفية هنا */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-top: -110px;
+        transition: 0.3s;
+        background-size: 102% 135%;
+        font-family: 'Nunito', sans-serif;
+    }
+    p {
+        color: white;
+        font-size: 23px;
+      margin-bottom: 10px;
+        margin-left: 15px;
+    }
+    /* تنسيق الأزرار */
+    button {
+        width: 200px;
+        padding: 15px;
+        margin: 10px;
+        font-size: 18px;
+        background-color: #D9D9D9;
+        color: #341E39;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    button:active {
+      background-color:  #8c52a5;
+      transform: scale(0.95);
+    }
+
+  
+    
+    /* زر تغيير اللغة */
+    .lang-button {
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: #333;
+        position: absolute;
+        top: 10px;
+        left: 200px; /* وضع الزر في أقصى يسار الصفحة */
+        transition: transform 0.3s ease, color 0.3s ease;
+    }</style>
+    <!-- زر تغيير اللغة -->
+    <button id="langToggle" class="lang-button">
+        <i class="fas fa-globe"></i>
+    </button>
+    <br><br> 
+    <br>
+    <p id="welcomeText"> Get ready to explore the world of technology in a simple way!"</p>
+    <br><br>
+    <button id="basicsBtn" onclick="location.href='Basics.html'"><b>Basics</b></button>
+    <button id="paintBtn" onclick="location.href='Paint Program.html'"><b>Paint Program</b></button>
+    <button id="officeBtn" onclick="location.href='microsoftvideo.html'"><b>Microsoft Office</b></button>
+
+    <script>
+        // بيانات اللغات
+        const translations = {
+            en: {
+                welcome: "Get ready to explore the world of technology in a simple way!",
+                basics: "Basics",
+                paint: "Paint Program",
+                office: "Microsoft Office"
+            },
+            ar: {
+                welcome:" استعد لاكتشاف عالم التكنولوجيا بطريقة سهلة وممتعة!",
+                basics: "الأساسيات",
+                paint: "برنامج الرسام",
+                office: "مايكروسوفت أوفيس"
+            }
+        };
+
+        let currentLang = "en"; // اللغة الافتراضية
+
+        function switchLanguage() {
+            currentLang = currentLang === "en" ? "ar" : "en";
+            document.getElementById("welcomeText").innerText = translations[currentLang].welcome;
+            document.getElementById("basicsBtn").innerText = translations[currentLang].basics;
+            document.getElementById("paintBtn").innerText = translations[currentLang].paint;
+            document.getElementById("officeBtn").innerText = translations[currentLang].office;
+        }
+
+        document.getElementById("langToggle").addEventListener("click", switchLanguage);
+    </script>
+
+</body>
+</html>

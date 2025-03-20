@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لعبة التوصيل بالصور</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #fbe7c6;
+        }
+        /* .game-container {
+            margin: 20px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0);
+            width: 76%;
+            height: 40px;
+            max-width: 600px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        } */
+        .drop-zone, .target-zone {
+            width: 60px;
+            height: 60px;
+            background-color: lightgray;
+            display: inline-block;
+            margin: 10px;
+            border: 2px dashed #000;
+        }
+        .draggable {
+          width: 60px;
+          height: 60px;
+            display: inline-block;
+            margin: 10px;
+            cursor: grab;
+        }
+        #message {
+            font-size: 24px;
+            font-weight: bold;
+            color: #b881b0;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<br><br><br><br>
+<br><br>
+    <div class="game-container">
+
+        <div class="images" id="imagesContainer">
+            <img id="img1" class="draggable" src="img\flash2-removebg-preview.png" draggable="true" data-target="drop1">
+            <img id="img2" class="draggable" src="img\cpu2-removebg-preview.png" draggable="true" data-target="drop2">
+            <img id="img3" class="draggable" src="img\labtop2-removebg-preview.png" draggable="true" data-target="drop3">
+            <img id="img4" class="draggable" src="img\printer2-removebg-preview.png" draggable="true" data-target="drop4">
+            <img id="img5" class="draggable" src="img\wifi2-removebg-preview.png" draggable="true" data-target="drop5">
+        </div>
+        <br><br>
+        <div class="target-images">
+            <img id="drop1" class="target-zone" src="img\flash.jpg" data-accept="img1">
+            <img id="drop2" class="target-zone" src="img\cpu.jpg" data-accept="img2">
+            <img id="drop3" class="target-zone" src="img\labtop.jpg" data-accept="img3">
+            <img id="drop4" class="target-zone" src="img\printer.jpg" data-accept="img4">
+            <img id="drop5" class="target-zone" src="img\wifi.jpg" data-accept="img5">
+        </div>
+        <p id="message">Bravo!</p>
+    </div>
+
+    <script>
+        function shuffleImages() {
+            let container = document.getElementById("imagesContainer");
+            let images = Array.from(container.children);
+            images.sort(() => Math.random() - 0.5);
+            images.forEach(img => container.appendChild(img));
+        }
+
+        document.addEventListener("DOMContentLoaded", shuffleImages);
+
+        let correctDrops = 0;
+        document.querySelectorAll('.draggable').forEach(img => {
+            img.addEventListener('dragstart', (event) => {
+                event.dataTransfer.setData('text', event.target.id);
+            });
+        });
+
+        document.querySelectorAll('.target-zone').forEach(zone => {
+            zone.addEventListener('dragover', (event) => {
+                event.preventDefault();
+            });
+            
+            zone.addEventListener('drop', (event) => {
+                event.preventDefault();
+                let imgId = event.dataTransfer.getData('text');
+                let img = document.getElementById(imgId);
+                let correctId = zone.getAttribute('data-accept');
+
+                if (imgId === correctId) {
+                    if (!zone.hasChildNodes()) {
+                        zone.appendChild(img);
+                        correctDrops++;
+                        if (correctDrops === 5) {
+                            document.getElementById('message').style.display = 'block';
+                        }
+                    }
+                } else {
+                    alert('الصورة غير صحيحة لهذا المكان!');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

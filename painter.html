@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>برنامج رسام بسيط</title>
+    <style>
+        body {
+            background-color: #AC64BD; /* لون خلفية مبهج */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            text-align: center;
+        }
+        h2 {
+            color: #dbcbc8;
+            margin-top: -30px;
+        }
+        .tools {
+            margin: 10px;
+        }
+        .tools button {
+            background-color: #FF6F61;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .tools button:hover {
+            background-color: #D64550;
+        }
+        canvas {
+            border: 3px  #412c46;
+            background-color: white;
+            border-radius: 10px;
+        }
+        img {
+            width: 150px; /* حجم مناسب للصورة */
+            margin-bottom: 10px;
+            margin-top: -90px;
+        }
+    </style>
+</head>
+<body>
+<br>
+  
+    <img src="img\Frame.png" alt="رسم للأطفال">
+    
+    <div class="tools">
+        <button onclick="clearCanvas()">مسح</button>
+        <input type="color" id="colorPicker" value="#000000">
+        <input type="range" id="brushSize" min="1" max="10" value="3">
+    </div>
+    <canvas id="drawingCanvas" width="350" height="340"></canvas>
+
+    <script>
+        let canvas = document.getElementById("drawingCanvas");
+        let ctx = canvas.getContext("2d");
+        let painting = false;
+        
+        function startPosition(e) {
+            painting = true;
+            draw(e);
+        }
+
+        function endPosition() {
+            painting = false;
+            ctx.beginPath();
+        }
+
+        function draw(e) {
+            if (!painting) return;
+            ctx.lineWidth = document.getElementById("brushSize").value;
+            ctx.lineCap = "round";
+            ctx.strokeStyle = document.getElementById("colorPicker").value;
+
+            ctx.lineTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+        }
+
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        canvas.addEventListener("mousedown", startPosition);
+        canvas.addEventListener("mouseup", endPosition);
+        canvas.addEventListener("mousemove", draw);
+    </script>
+</body>
+</html>

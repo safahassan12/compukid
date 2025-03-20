@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colorful Buttons</title>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&family=Nunito:wght@400;700&family=Fredoka+One&family=Quicksand:wght@400;600&family=Comic+Neue:wght@400;700&family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- مكتبة FontAwesome للأيقونات -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: url('p7\ back.png') no-repeat center center/cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            width: 300px;
+            margin-top: 140px;
+        }
+        .button {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 40px;
+        }
+        .button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        .button img {
+            width: 30px;
+            height: 30px;
+            margin-right: 20px;
+           
+        }
+        .course-content { background: #eabfff; }
+        .daily-tasks { background: #c2a5ff; }
+        .educational-stories { background: #f2a2cd; }
+        .quizzes { background: #dfafeb; }
+        .child-progress { background: #ffcccb; }
+        .games { background: #ffdd99; }
+        
+        .lang-button {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #333;
+            position: absolute;
+            top: 30px;
+            left: 20px; /* وضع الزر في أقصى يسار الصفحة */
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+        </style>
+    <!-- زر تغيير اللغة -->
+    <button id="langToggle" class="lang-button">
+        <i class="fas fa-globe"></i>
+    </button>
+
+    <div class="container">
+        <div class="button course-content">
+            <img src="img\content (1).png" alt="icon"> <span>Course Content</span>
+        </div>
+        <div class="button daily-tasks">
+            <img src="img\content (2).png" alt="icon"> <span>Daily Tasks</span>
+        </div>
+        <div class="button educational-stories">
+            <img src="img\content (3).png" alt="icon"> <span>Educational Stories</span>
+        </div>
+        <div class="button quizzes">
+            <img src="img\content (4).png" alt="icon"> <span>Quizzes</span>
+        </div>
+        <div class="button child-progress">
+            <img src="img\care.png" alt="icon"> <span>Child Progress</span>
+        </div>
+        <div class="button games">
+            <img src="img\joystick_808439.png" alt="icon"> <span>Games</span>
+        </div>
+    </div>
+    <script>document.addEventListener("DOMContentLoaded", function () {
+        // احصل على جميع الأزرار
+        const buttons = document.querySelectorAll(".button");
+    
+        // قم بإضافة حدث النقر لكل زر
+        buttons.forEach(button => {
+            button.addEventListener("click", function () {
+                let page = "";
+    
+                // تحقق من الزر الذي تم النقر عليه
+                if (button.classList.contains("course-content")) {
+                    page = "p8.html";
+                } else if (button.classList.contains("daily-tasks")) {
+                    page = "p9.html";
+                } else if (button.classList.contains("educational-stories")) {
+                    page = "stories.html";
+                } else if (button.classList.contains("quizzes")) {
+                    page = "quizzes.html";
+                } else if (button.classList.contains("child-progress")) {
+                    page = "progresspage.html";
+                } else if (button.classList.contains("games")) {
+                    page = "game.html";
+                }
+    
+                // الانتقال إلى الصفحة الجديدة
+                if (page) {
+                    window.location.href = page;
+                }
+            });
+        });
+    });
+    
+    document.addEventListener("DOMContentLoaded", function () {
+        const translations = {
+            "en": {
+                "course-content": "Course Content",
+                "daily-tasks": "Daily Tasks",
+                "educational-stories": "Educational Stories",
+                "quizzes": "Quizzes",
+                "child-progress": "Child Progress",
+                "games": "Games"
+            },
+            "ar": {
+                "course-content": "محتوى الدورة",
+                "daily-tasks": "المهام اليومية",
+                "educational-stories": "قصص تعليمية",
+                "quizzes": "الاختبارات",
+                "child-progress": "تقدم الطفل",
+                "games": "الألعاب"
+            }
+        };
+    
+        const langToggleButton = document.getElementById("langToggle");
+        let currentLang = localStorage.getItem("lang") || "en"; // استرجاع اللغة المحفوظة أو تعيين الافتراضية
+    
+        function updateLanguage(lang) {
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === "ar" ? "rtl" : "ltr"; // تغيير الاتجاه
+            currentLang = lang;
+            localStorage.setItem("lang", lang); // حفظ اللغة في localStorage
+    
+            document.querySelectorAll(".button").forEach(button => {
+                const key = button.classList[1]; // استخراج اسم الفئة الثانية كمفتاح للترجمة
+                if (translations[lang][key]) {
+                    button.querySelector("span").innerText = translations[lang][key]; // تحديث النص داخل <span>
+                }
+            });
+        }
+    
+        function toggleLanguage() {
+            currentLang = currentLang === "en" ? "ar" : "en";
+            updateLanguage(currentLang);
+        }
+    
+        langToggleButton.addEventListener("click", toggleLanguage);
+    
+        // تحديث النصوص عند تحميل الصفحة بناءً على اللغة المحفوظة
+        updateLanguage(currentLang);
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لعبة البحث عن المفاتيح</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-image: url('keys page.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+        .game-container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 15px;
+            display: inline-block;
+            margin-top: 30px;
+            height: 10px;
+            line-height: 30px;
+        }
+        .keyBox {
+            width: 80px;
+            height: 80px;
+            background-color: rgb(44, 2, 30);
+            text-align: center;
+            line-height: 80px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            display: inline-block;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+    margin-top: -38px; /* ارفع الجملة للأعلى */
+    position: relative;
+    font-size: 22px;
+}
+        .virtual-keyboard {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+            padding: 10px;
+        }
+  
+        .key {
+            width: 40px;
+            height: 40px;
+            margin: 5px;
+            text-align: center;
+            line-height: 40px;
+            font-size: 22px;
+            font-weight: bold;
+            background-color: rgb(92, 4, 48);
+            border: 2px solid #fff;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .key:hover {
+            background-color: rgb(51, 2, 26);
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+<br>
+        <h1>Press the correct key !</h1>
+        <br>
+        <div class="keyBox" id="keyBox">A</div>
+        <div class="virtual-keyboard" id="virtualKeyboard"></div>
+    </div>
+    
+    <script>
+        const keyBox = document.getElementById("keyBox");
+        const virtualKeyboard = document.getElementById("virtualKeyboard");
+        let currentKey = "A";
+        
+        function generateKeyboard() {
+            const keys = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+            keys.forEach(letter => {
+                const keyElement = document.createElement("div");
+                keyElement.classList.add("key");
+                keyElement.textContent = letter;
+                keyElement.onclick = () => checkKey(letter);
+                virtualKeyboard.appendChild(keyElement);
+            });
+        }
+        
+        function checkKey(inputKey) {
+            if (inputKey === currentKey) {
+                keyBox.style.backgroundColor = "green";
+                setTimeout(() => {
+                    keyBox.style.backgroundColor = " rgb(92, 4, 48)"
+                    currentKey = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+                    keyBox.textContent = currentKey;
+                }, 500);
+            } else {
+                keyBox.style.backgroundColor = "red";
+                setTimeout(() => keyBox.style.backgroundColor = " rgb(92, 4, 48)", 500);
+            }
+        }
+        
+        document.addEventListener("keydown", (event) => {
+            checkKey(event.key.toUpperCase());
+        });
+        
+        generateKeyboard();
+    </script>
+</body>
+</html>

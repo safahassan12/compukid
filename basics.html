@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="basics.css">
+  <script src="basics.js" defer></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  
+</head>
+<body>
+    <style>
+         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Nunito:wght@400;700&display=swap');
+
+body {
+    font-family: 'Nunito', sans-serif; /* الخط الأساسي */
+}
+
+h1 {
+    font-family: 'Poppins', sans-serif; /* للعناوين */
+}
+
+        body {
+            background-image: url('Frame (11).png'); /* استبدلي بالرابط الخاص بالخلفية */
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+           background-repeat: no-repeat;
+            padding: 0;
+            background-size: 102% 145%;
+        }
+        
+        .container {
+            width: 300px;
+            height: 400px;
+            max-height: 350px;
+            max-width: 400px;
+            background: rgba(255, 255, 255, 0.9);
+            color: black;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            margin-top: 120px;
+            overflow-y: auto;
+            opacity: 90%;
+        }
+        
+        .video-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .video-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-decoration: none;
+            color: black;
+            padding: 10px;
+            background: #f3f3f3;
+            border-radius: 10px;
+            transition: 0.3s;
+            cursor: pointer;
+            font-weight: bold;
+            height: 20px;
+            width: 270px;
+        }
+        
+        .video-item:hover {
+            background: #e0e0e0;
+        }
+        
+        .active {
+            background: #ffcc00 !important; /* لون مميز للفيديو النشط */
+        }
+        
+        .video-icon-box {
+            width: 30px;
+            height: 30px;
+            background: #D973F2;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+          
+        }
+        
+        .video-container {
+            background-color: #ffffff;
+            display: none;
+            margin-top: 20px;
+        }
+        
+        video {
+            width: 100%;
+            border-radius: 10px;
+        }
+        
+        .quiz-button {
+            display: block;
+            width: 150px;
+            text-align: center;
+            margin: 15px auto;
+            padding: 10px;
+            background-color: #fae04e;
+            color: #AC64BD;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 20px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background 0.3s;
+        }
+        
+        .quiz-button:hover {
+            background-color: #FFC107;
+        }
+        
+        .back-btn {
+            margin-top: 10px;
+            display: inline-block;
+            padding: 10px;
+            background: #AC64BD;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        
+        h2 {
+            font-size: 33px;
+        }
+        h3{
+          color:#110014;
+        }
+        .lang-button {
+          background: none;
+          border: none;
+          font-size: 24px;
+          cursor: pointer;
+          color: #333;
+          position: absolute;
+          top: 25px;
+          left: 20px; /* وضع الزر في أقصى يسار الصفحة */
+          transition: transform 0.3s ease, color 0.3s ease;
+        }</style>
+
+    <!-- زر تغيير اللغة -->
+    <button  class="lang-button" onclick="toggleLanguage()">
+      <i class="fas fa-globe"></i>
+  </button>
+  <br>
+  <h2>Basics</h2>
+  <div class="container" id="main-container">
+      <div class="video-list">
+          <div class="video-item" onclick="showVideo(this, 'intro.mp4', 'Introduction', 'q1.html')">
+              <h3>Introduction</h3>
+              <div class="video-icon-box"><i class="fa-solid fa-video"></i></div>
+          </div>
+          <div class="video-item" onclick="showVideo(this, 'l1.mp4', 'The Language of Color', 'q2.html')">
+              <h3> Computer Components </h3>
+              <div class="video-icon-box"><i class="fa-solid fa-video"></i></div>
+          </div>
+          <div class="video-item" onclick="showVideo(this, 'l2.mp4', 'The Psychology of Color', 'q3.html')">
+              <h3> Turn on The Computer </h3>
+              <div class="video-icon-box"><i class="fa-solid fa-video"></i></div>
+          </div>
+          <div class="video-item" onclick="showVideo(this, 'l3.mp4', 'The Psychology of Color', 'q4.html')">
+            <h3> Files in The Computer</h3>
+            <div class="video-icon-box"><i class="fa-solid fa-video"></i></div>
+        </div>
+        <div class="video-item" onclick="showVideo(this, 'l4.mp4', 'The Psychology of Color', 'q5.html')">
+          <h3>Programs in Computer</h3>
+          <div class="video-icon-box"><i class="fa-solid fa-video"></i></div>
+      </div>
+      <div class="video-item" onclick="showVideo(this, 'l5.mp4', 'The Psychology of Color', 'q6.html')">
+        <h3> Explore the Internet</h3>
+        <div class="video-icon-box"><i class="fa-solid fa-video"></i></div>
+    </div>
+    <div class="video-item" onclick="showVideo(this, 'l6.mp4', 'The Psychology of Color', 'q7.html')">
+      <h3> Computer Care</h3>
+      <div class="video-icon-box"><i class="fa-solid fa-video"></i></div>
+  </div>
+      </div>
+  </div>
+  <div class="container video-container" id="video-container">
+    <img src="img\3sfora.jpg" alt="Bird" class="bird-icon">
+    <video id="video-player" controls>
+        <source id="video-source" src="" type="video/mp4">
+    </video>
+    <span class="back-btn" onclick="goBack()">Playlist</span>
+    <a id="quiz-button" href="#" class="quiz-button">Start the quiz</a>
+</div>
+
+<script>
+    
+function showVideo(element, videoSrc, title, quizLink) {
+    document.getElementById("main-container").style.display = "none";
+    document.getElementById("video-container").style.display = "block";
+    document.getElementById("video-source").src = videoSrc;
+    document.getElementById("video-player").load();
+    document.getElementById("quiz-button").href = quizLink;
+
+    // إزالة اللون من جميع العناصر
+    document.querySelectorAll(".video-item").forEach(item => item.classList.remove("active"));
+
+    // إضافة اللون للفيديو النشط
+    element.classList.add("active");
+}
+
+function goBack() {
+    document.getElementById("main-container").style.display = "block";
+    document.getElementById("video-container").style.display = "none";
+}
+
+const translations = {
+  "Basics": "الأساسيات",
+  "Introduction": "المقدمة",
+  "Computer Components": "مكونات الكمبيوتر",
+  "Turn on The Computer": "تشغيل الكمبيوتر",
+  "Files in The Computer": "الملفات في الكمبيوتر",
+  "Programs in Computer": "البرامج في الكمبيوتر",
+  "Explore the Internet": "استكشاف الإنترنت",
+  "Computer Care": "العناية بالكمبيوتر",
+  "Playlist": "قائمة التشغيل",
+  "Start the quiz": "ابدأ الاختبار"
+};
+
+let isTranslated = false;
+
+function toggleLanguage() {
+  document.querySelectorAll("h2, h3, .back-btn, .quiz-button").forEach(element => {
+      const text = element.textContent.trim();
+      if (isTranslated) {
+          element.textContent = getKeyByValue(translations, text) || text;
+      } else {
+          element.textContent = translations[text] || text;
+      }
+  });
+  isTranslated = !isTranslated;
+}
+
+function getKeyByValue(object, value) {
+  return Object.keys(object).find(key => object[key] === value) || value;
+}
+
+</script>
+</body>
+</html>

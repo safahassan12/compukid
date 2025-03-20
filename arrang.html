@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ترتيب سطح المكتب</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #b881b0;
+            font-size: 18px;
+        }
+        .desktop {
+            margin-top: 70px;
+            width: 80%;
+           margin-left: 15px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .folder, .item {
+            width: 90px;
+            height: 70px;
+            display: inline-block;
+            margin: 10px;
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .folder {
+           
+           
+            width: 70px;
+            height: 70px;
+            border-radius: 15px;
+        }
+        .item {
+            cursor: grab;
+            width: 70px;
+            height: 70px;
+        }
+        .folder-images{           
+           width: 70px;
+          height: 70px;
+
+        }
+        #message {
+            font-size: 24px;
+            font-weight: bold;
+            color: #b881b0;
+            display: none;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+    </style>
+</head>
+<body>
+<br>
+    <div class="desktop">
+
+        <div class="items" id="items-container"></div>
+        <div class="folders">
+            <div id="folder-images" class="folder" data-accept="image"><img src="img\gallery_3979453.png" style="width: 60px; height:60px; padding-top: 20px;"></div>
+            <div id="folder-documents" class="folder" data-accept="document"><img src="img\folder_2577366.png" style="width: 60px; height:60px; padding-top: 20px;"></div>
+            <div id="folder-apps" class="folder" data-accept="app"><img src="img\folder_5538186.png" style="width: 60px; height:60px; padding-top: 20px;"></div>
+        </div>
+        <p id="message">Bravo!</p>
+    </div>
+<br>
+    <script>
+let itemsData = [
+{ src: "photo_15203755.png", type: "image" },
+{ src: "d.png", type: "document" },
+{ src: "dd.png", type: "document" },
+{ src: "coding_3867537.png", type: "app" }
+];
+        let correctDrops = 0;
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function initializeGame() {
+            let itemsContainer = document.getElementById("items-container");
+            itemsContainer.innerHTML = "";
+            shuffleArray(itemsData);
+            itemsData.forEach((item, index) => {
+                let img = document.createElement("img");
+                img.id = "item" + index;
+                img.className = "item";
+                img.src = item.src;
+                img.draggable = true;
+                img.setAttribute("data-type", item.type);
+                itemsContainer.appendChild(img);
+            });
+            attachDragEvents();
+        }
+
+        function attachDragEvents() {
+            document.querySelectorAll('.item').forEach(item => {
+                item.addEventListener('dragstart', (event) => {
+                    event.dataTransfer.setData('text/plain', event.target.id);
+                });
+            });
+
+            document.querySelectorAll('.folder').forEach(folder => {
+                folder.addEventListener('dragover', (event) => {
+                    event.preventDefault();
+                });
+                
+                folder.addEventListener('drop', (event) => {
+                    event.preventDefault();
+                    let itemId = event.dataTransfer.getData('text/plain');
+                    let item = document.getElementById(itemId);
+                    let correctType = folder.getAttribute('data-accept');
+                    
+                    if (item.getAttribute('data-type') === correctType) {correctDrops++;
+                        item.style.display = "none"; // إخفاء العنصر عند وضعه في المكان الصحيح
+                        if (correctDrops === itemsData.length) {
+                            document.getElementById('message').style.display = 'block';
+                        }
+                    } else {
+                        alert('هذا العنصر لا ينتمي لهذا المجلد!');
+                    }
+                });
+            });
+        }
+
+        window.onload = initializeGame;
+    </script>
+</body>
+</html>

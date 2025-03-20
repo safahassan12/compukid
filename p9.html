@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+         align-items: center; 
+        height: 100vh;
+        background: url('p9back.png') no-repeat center center/cover;
+    }
+    .container {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        margin-top:250px;
+        width: 300px;
+        height: 350px;
+    }
+    .task {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #f3f3f3;
+        padding: 10px;
+        border-radius: 5px;
+        margin: 10px 0;
+        height: 40px;
+    }
+    input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        appearance: none;
+        border: 2px solid #ccc;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+    input[type="checkbox"]:checked {
+        background-color: #ffcc00;
+        border-color: #ffcc00;
+    }
+    button {
+        background-color: #ffcc00;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+        width: 200px;
+        height: 60px;
+        border-radius: 20px;
+    }
+    .line{
+        font-size: 18px;
+        font-family:  'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+    .t{
+        padding-left: 0px;
+        margin-right: 130px;
+        
+        
+        
+        font-size: 18px;
+        font-family:  'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+    
+            /* زر تغيير اللغة */
+            .lang-button {
+                
+                background: none;
+                border: none;
+                font-size: 24px;
+                cursor: pointer;
+                color: #333;
+                position: absolute;
+                top: 15px;
+                left: 220px; /* وضع الزر في أقصى يسار الصفحة */
+                transition: transform 0.3s ease, color 0.3s ease;
+                margin-right: 200px;
+            
+            }
+            
+    </style>
+    <!-- زر تغيير اللغة -->
+    <button id="langToggle" class="lang-button">
+        <i class="fas fa-globe"></i>
+    </button>
+
+    <div class="container">
+        <div class="task">
+            <input type="checkbox" class="task-checkbox">
+            <span id="task1" class="t"><a href="t1.html" style="text-decoration: none;color: inherit;"> Lesson 1 Task </a> </span>
+        </div>
+        <div class="task">
+            <input type="checkbox" class="task-checkbox">
+            <span id="task2" class="t"><a href="t2.html" style="text-decoration: none;color: inherit;">  Lesson 2 Task </a></span>
+        </div>
+        <div class="task">
+            <input type="checkbox" class="task-checkbox">
+            <span id="task3" class="t"><a href="t3.html" style="text-decoration: none;color: inherit;">  Lesson 3 Task </a></span>
+        </div>
+        <div class="task">
+            <input type="checkbox" class="task-checkbox">
+            <span id="task4" class="t"><a href="t4.html" style="text-decoration: none;color: inherit;">  Lesson 4 Task </a></span>
+        </div>
+        <div class="task">
+            <input type="checkbox" class="task-checkbox">
+            <span id="task5" class="t"><a href="t5.html" style="text-decoration: none;color: inherit;">  Lesson 5 Task </a></span>
+        </div>
+    </div>
+<script>
+    // بيانات الترجمة
+    const translations = {
+        en: {
+            task1: "Lesson 1 Task",
+            task2: "Lesson 2 Task",
+            task3: "Lesson 3 Task",
+            task4: "Lesson 4 Task",
+            task5: "Lesson 5 Task"
+        },
+        ar: {
+            task1: "مهمة الدرس الأول",
+            task2: "مهمة الدرس الثاني",
+            task3: "مهمة الدرس الثالث",
+            task4: "مهمة الدرس الرابع",
+            task5: "مهمة الدرس الخامس"
+        }
+    };
+
+    let currentLang = "en"; // اللغة الافتراضية
+
+    function switchLanguage() {
+        currentLang = currentLang === "en" ? "ar" : "en";
+        document.getElementById("task1").innerText = translations[currentLang].task1;
+        document.getElementById("task2").innerText = translations[currentLang].task2;
+        document.getElementById("task3").innerText = translations[currentLang].task3;
+        document.getElementById("task4").innerText = translations[currentLang].task4;
+        document.getElementById("task5").innerText = translations[currentLang].task4;
+    }
+    
+    document.getElementById("langToggle").addEventListener("click", switchLanguage);
+
+
+</script>
+    
+</body>
+</html>

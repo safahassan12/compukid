@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  
+
+    <!-- مكتبة FontAwesome للأيقونات -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500&display=swap');
+*{
+  box-sizing: border-box;
+}
+body{
+  background-color: #AC64BD;
+  font-family:  'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+}
+.quiz-container{
+  padding-top: 25px;
+  background-color:#e6e6e6;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 2px rgba(100, 100, 100, 0.1);
+  width: 320px;
+  height: 350px;
+  overflow: hidden;
+}
+.quiz-header{
+  padding: 3 rem;
+}
+h2{
+  padding: .5rem;
+  text-align: center;
+  margin: 0;
+}
+ul{
+  list-style-type: none;
+  padding: 5;
+}
+ul li{
+  font-size: 1.4rem;
+  margin: 1rem 0;
+  margin-top: 20px;
+}
+ul li label{
+  cursor: pointer;
+}
+button{
+  background-color: #3e034b;
+  color: #fff;
+  border: none;
+  display: block;
+  color: white;
+  font-size: 20px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-family: inherit;
+  margin: 8px auto;
+  margin-top: 70px;
+}
+input[type="radio"] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgb(161, 92, 161);
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+}
+input[type="radio"]:checked {
+    background-color: rgb(61, 3, 61);
+}
+button:hover{
+  background-color: #9557a3;
+}
+button:focus{
+  outline: none;
+  background-color: #632970;
+}
+
+/* Styling for the globe button */
+.translate-btn {
+            
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+    position: absolute;
+    top: 15px;
+    left: 280px; /* وضع الزر في أقصى يسار الصفحة */
+    transition: transform 0.3s ease, color 0.3s ease;
+    margin-right: 200px;
+
+}
+
+
+</style>
+</head>
+  
+
+
+<body>
+  <div class="quiz-container" id="quiz">
+    <div class="quiz-header">
+      <h2 id="question">Question Text</h2>
+      <ul>
+        <li>
+          <input type="radio" name="answer" id="a" class="answer">
+          <label for="a" id="a_text">Answer</label>
+        </li>
+        <li>
+          <input type="radio" name="answer" id="b" class="answer">
+          <label for="b" id="b_text">Answer</label>
+        </li>
+      </ul>
+    </div>
+    <button id="submit">Submit</button>
+  </div>
+
+  <!-- Globe Translation Button -->
+  <button class="translate-btn" id="translateBtn">
+    
+        <i class="fas fa-globe"></i>
+    </button>
+  </button>
+<script>
+  
+  const quizData = [
+      {
+          question: {
+            en: "What is a computer?",
+            ar: "ما هو الكمبيوتر؟"
+          },
+          a: {
+            en: "A device that helps us learn and play",
+            ar: "جهاز يساعدنا في التعلم واللعب"
+          },
+          b: {
+            en: "An empty box",
+            ar: "صندوق فارغ"
+          },
+          correct: "a",
+      },
+      {
+          question: {
+            en: "Where does the computer process information?",
+            ar: "أين يعالج الكمبيوتر المعلومات؟"
+          },
+          a: {
+            en: "Speakers",
+            ar: "مكبرات الصوت"
+          },
+          b: {
+            en: "System Unit (CPU)",
+            ar: "وحدة النظام (CPU)"
+          },
+          correct: "b",
+      },
+      {
+          question: {
+            en: "What appears when it starts?",
+            ar: "ماذا يظهر عند بدء التشغيل؟"
+          },
+          a: {
+            en: "Black screen",
+            ar: "شاشة سوداء"
+          },
+          b: {
+            en: "Desktop and icons",
+            ar: "سطح المكتب والرموز"
+          },
+          correct: "b",
+      },
+      {
+          question: {
+            en: "What do we click to open programs?",
+            ar: "ماذا نضغط لفتح البرامج؟"
+          },
+          a: {
+            en: "Keyboard",
+            ar: "لوحة المفاتيح"
+          },
+          b: {
+            en: "Icons",
+            ar: "الرموز"
+          },
+          correct: "b",
+      },
+      {
+          question: {
+            en: "Why do we use computers?",
+            ar: "لماذا نستخدم أجهزة الكمبيوتر؟"
+          },
+          a: {
+            en: "To learn, play, and work",
+            ar: "للتعلم واللعب والعمل"
+          },
+          b: {
+            en: "Just to turn it on",
+            ar: "فقط لتشغيله"
+          },
+          correct: "a",
+      },
+    ];
+
+    const quiz = document.getElementById('quiz');
+    const answerEls = document.querySelectorAll('.answer');
+    const questionEl = document.getElementById('question');
+    const a_text = document.getElementById('a_text');
+    const b_text = document.getElementById('b_text');
+    const submitBtn = document.getElementById('submit');
+    const translateBtn = document.getElementById('translateBtn');
+
+    let currentQuiz = 0;
+    let score = 0;
+    let language = 'en';
+
+    loadQuiz();
+
+    function loadQuiz() {
+        deselectAnswers();
+        const currentQuizData = quizData[currentQuiz];
+        questionEl.innerText = currentQuizData.question[language];
+        a_text.innerText = currentQuizData.a[language];
+        b_text.innerText = currentQuizData.b[language];
+        submitBtn.innerText = language === 'en' ? 'Submit' : 'إرسال';
+    }
+
+    function deselectAnswers() {
+        answerEls.forEach(answerEl => answerEl.checked = false);
+    }
+
+    function getSelected() {
+        let answer;
+        answerEls.forEach(answerEl => {
+            if(answerEl.checked) {
+                answer = answerEl.id;
+            }
+        });
+        return answer;
+    }
+
+    function translatePage() {
+        language = (language === 'en') ? 'ar' : 'en';
+        loadQuiz();
+    }
+
+    translateBtn.addEventListener('click', translatePage);
+
+    submitBtn.addEventListener('click', () => {
+        const answer = getSelected();
+        if(answer) {
+            if(answer === quizData[currentQuiz].correct) {
+                score++;
+            }
+            currentQuiz++;
+            if(currentQuiz < quizData.length) {
+                loadQuiz();
+            } else {
+                quiz.innerHTML = `
+                    <h2>${language === 'en' ? 'You answered' : 'أجبت على'} ${score}/${quizData.length} ${language === 'en' ? 'questions correctly' : 'سؤالاً بشكل صحيح'}</h2>
+                    <button onclick="location.reload()">${language === 'en' ? 'Reload' : 'إعادة تحميل'}</button>
+                    <a href="basics.html">
+                    <button class="continue-btn" onclick="continueAction()">${language === 'en' ? 'Continue' : 'استمرار'}</button>
+                   </a>
+                `;
+            }
+        }
+    });
+ 
+</script>
+  
+</body>
+</html>

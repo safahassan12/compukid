@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قصص الفيديو</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background:url("sunpurple.jpg");
+            margin: 0;
+            padding: 0;
+            background-size: cover;
+    background-position: center;
+    color: white;
+    text-align: center;
+   
+    padding: 0;
+    background-size: 102% 140%;
+
+        }
+
+        .title {
+            margin: 20px 0;
+            color: #333;
+            font-size: 22px;
+        }
+
+        .stories-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            max-width: 100%;
+            padding: 10px;
+            margin-top: 50px;
+        }
+
+        .story {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            width: 90px;
+           
+            background: none;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: 0.3s;
+            margin: 10px;
+           
+        }
+
+        .story:hover {
+            background-color: #f0f0f0;
+        }
+
+        .story img {
+            width: 80px;
+            height: 80px;
+            border-radius: 25px;
+            border: 2px #ddd;
+            
+        }
+
+        .story p {
+            font-size: 16px;
+            color: #333;
+            margin-left: 15px;
+            text-align: left;
+            flex-grow: 1;
+        }
+
+        /* نافذة الفيديو */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .modal-content {
+            position: relative;
+            background: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .close {
+            position: absolute;
+            top: 5px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #333;
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            
+        }
+    </style>
+</head>
+<body>
+
+    
+
+    <div class="stories-container">
+        <div class="story" onclick="openStory('b.mp4')">
+            <img src="img\s1-removebg-preview.png" alt="قصة 1">
+            
+        </div>
+        <div class="story" onclick="openStory('r.mp4')">
+            <img src="img\s2-removebg-preview.png" alt="قصة 2">
+            
+        </div>
+        <div class="story" onclick="openStory('m.mp4 ')">
+            <img src="img\s3-removebg-preview.png" alt="قصة 3">
+            
+        </div>
+        <div class="story" onclick="openStory('a.mp4')">
+            <img src="img\s4.png" alt="قصة 4">
+            
+        </div>
+        <div class="story" onclick="openStory('s.mp4')">
+            <img src="img\s5-removebg-preview.png" alt="قصة 5">
+           
+        </div>
+    </div>
+
+    <!-- نافذة عرض الفيديو -->
+    <div id="videoModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeStory()">&times;</span>
+            <video id="storyVideo" controls></video>
+        </div>
+    </div>
+
+    <script>
+        function openStory(videoSrc) {
+            const modal = document.getElementById("videoModal");
+            const video = document.getElementById("storyVideo");
+
+            video.src = videoSrc;
+            modal.style.display = "flex";
+        }
+
+        function closeStory() {
+            const modal = document.getElementById("videoModal");
+            const video = document.getElementById("storyVideo");
+
+            video.pause();
+            video.src = "";
+            modal.style.display = "none";
+        }
+
+        // إغلاق النافذة عند الضغط خارجها
+        window.onclick = function(event) {
+            const modal = document.getElementById("videoModal");
+            if (event.target === modal) {
+                closeStory();
+            }
+        };
+    </script>
+
+</body>
+</html>

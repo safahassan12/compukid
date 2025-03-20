@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Progress Tracker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Nunito:wght@400;700&display=swap');
+
+        body {
+            background-image: url("sunpurple.jpg");
+            text-align: center;
+            padding: 20px;
+            color: #482750;
+            margin-top: 50px;
+            font-family: 'Nunito', Arial, sans-serif;
+        }
+
+        h1 {
+            font-family: 'Poppins', Tahoma, sans-serif;
+        }
+
+        p {
+            font-family: 'Comic Sans MS', 'Comic Neue', cursive, sans-serif;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .progress-bar .fill {
+            height: 100%;
+            width: 70%;
+            background: linear-gradient(90deg, #952fe7, #9776f1);
+            border-radius: 10px;
+            transition: width 0.5s ease-in-out;
+        }
+
+        .progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 14px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .course-cards {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .course-card {
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            width: 45%;
+        }
+
+        .b {
+            display: block;
+            background: #ffd700;
+            color: #333;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .rating-box {
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            height: 100px;
+}
+.rating-box header {
+  font-size: 22px;
+  color: #333;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+.rating-box .stars {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+.stars i {
+  color: #e6e6e6;
+  font-size: 35px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.stars i.active {
+  color: #ff9c1a;
+}
+
+        .translate-btn {
+            background: none;
+          border: none;
+          font-size: 24px;
+          cursor: pointer;
+          color: #333;
+          position: absolute;
+          top: 25px;
+          left: 20px; /* وضع الزر في أقصى يسار الصفحة */
+          transition: transform 0.3s ease, color 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="translate-btn" onclick="translatePage()">   <i class="fas fa-globe"></i></button>
+        <h2 data-en="Course Progress Tracker" data-ar="متتبع تقدم الدورة">Course Progress Tracker</h2>
+        <div class="progress-bar">
+            <div class="fill"></div>
+            <span class="progress-text" data-en="70%" data-ar="٧٠٪">70%</span>
+        </div>
+        <p data-en="Site Visits: " data-ar="زيارات الموقع: ">Site Visits: </p>
+        <span id="visitCount">0</span>
+        <div class="course-cards">
+            <div class="course-card">
+                <h2 data-en="Course Videos" data-ar="فيديوهات الدورة">Course Videos</h2>
+                <p data-en="Videos Watched: " data-ar="الفيديوهات المشاهدة: ">
+                    Videos Watched: <span id="videosWatched">0</span>/7
+                </p>
+            </div>
+            <div class="course-card">
+                <h2 data-en="Tests" data-ar="الاختبارات">Tests</h2>
+                <p data-en="Completed Tests:" data-ar="الاختبارات المكتملة: ">Completed Tests:</p>
+                <ul id="testResults"></ul>
+            </div>
+        </div>
+        <a href="cer3.html" class="b" data-en="View Certificates" data-ar="عرض الشهادات">View Certificates</a>
+    </div>
+    <div class="rating-box">
+        <p data-en="How was your experience?" data-ar="كيف كانت تجربتك؟">How was your experience?</p>
+       
+            <div class="stars">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+            </div>
+          </div>
+
+    <script>
+        let isArabic = false;
+
+        function translatePage() {
+            isArabic = !isArabic;
+            document.querySelectorAll("[data-en]").forEach(el => {
+                el.textContent = isArabic ? el.getAttribute("data-ar") : el.getAttribute("data-en");
+            });
+        }
+
+
+        const stars = document.querySelectorAll(".stars i");
+
+stars.forEach((star, index1) => {
+  star.addEventListener("click", () => {
+    stars.forEach((star, index2) => {
+      index1 >= index2 ? star.classList.add("active") : star.classList.remove("active");
+    });
+  });
+});
+
+    </script>
+</body>
+</html>

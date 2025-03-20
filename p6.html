@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="p6.css">
+    <script src="p6.js" defer></script> 
+  
+</head>
+
+<body>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500&display=swap');
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    background-color: #AC64BD;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+  }
+  .quiz-container {
+    background-color: #e6e6e6;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 2px rgba(100, 100, 100, 0.1);
+    width: 320px;
+    height: 350px;
+    overflow: hidden;
+    position: relative;
+    padding-top: 25px;
+  }
+  .quiz-header {
+    padding: 1.5rem;
+  }
+  h2 {
+    text-align: center;
+    margin: 0;
+  }
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  ul li {
+    font-size: 1.2rem;
+    margin: 10px 0;
+  }
+  ul li label {
+    cursor: pointer;
+  }
+  button {
+    background-color: #3e034b;
+    color: white;
+    font-size: 18px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    margin: 8px auto;
+    display: block;
+    margin-top: 15px;
+  }
+  button:hover {
+    background-color: #9557a3;
+  }
+  button:focus {
+    outline: none;
+    background-color: #632970;
+  }
+  input[type="radio"] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgb(161, 92, 161);
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+  }
+  input[type="radio"]:checked {
+    background-color: rgb(61, 3, 61);
+  }
+  
+  /* زر تغيير اللغة */
+  .lang-button {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #333;
+      position: absolute;
+      top: 20px;
+      left: 20px; /* وضع الزر في أقصى يسار الصفحة */
+      transition: transform 0.3s ease, color 0.3s ease;
+  
+  }
+  .end-btn{
+    margin-top: 50px;
+  }
+  .result-container{
+    margin-top: 50px;
+  
+  }
+  .star{
+    
+    
+        font-size: 20px;
+        color: gold;
+        margin-left: 10px;
+        padding-left: 20px;
+  }</style>
+  <!-- زر تغيير اللغة -->
+  <button id="langToggle" class="lang-button">
+    <i class="fas fa-globe"></i>
+  </button>
+
+  <div class="quiz-container" id="quiz">
+    <div class="quiz-header">
+      <h2 id="question">Question Text</h2>
+      <ul>
+        <li>
+          <input type="radio" name="answer" id="a" class="answer">
+          <label for="a" id="a_text">Answer</label>
+        </li>
+        <li>
+          <input type="radio" name="answer" id="b" class="answer">
+          <label for="b" id="b_text">Answer</label>
+        </li>
+      </ul>
+    </div>
+    <button id="submit">→</button>
+  </div>
+
+ <script>// quiz.js
+  const quizData = {
+    en: [
+      { question: "What can we watch videos from?", a: "Screen", b: "Mouse", correct: "a" },
+      { question: "Where do we type letters and numbers?", a: "On the Keyboard", b: "On the Mouse", correct: "a" },
+      { question: "Can we drink water next to the computer?", a: "Yes", b: "No", correct: "b" },
+      { question: "How do we shut down the computer?", a: "Pull the wire", b: "The Close option", correct: "b" },
+      { question: "What moves the arrow on the screen?", a: "Mouse", b: "Keyboard", correct: "a" }
+    ],
+    ar: [
+      { question: "من أين يمكننا مشاهدة الفيديوهات؟", a: "الشاشة", b: "الفأرة", correct: "a" },
+      { question: "أين نكتب الحروف والأرقام؟", a: "على لوحة المفاتيح", b: "على الفأرة", correct: "a" },
+      { question: "هل يمكننا شرب الماء بجانب الكمبيوتر؟", a: "نعم", b: "لا", correct: "b" },
+      { question: "كيف نقوم بإغلاق الكمبيوتر؟", a: "سحب السلك", b: "اختيار إيقاف التشغيل", correct: "b" },
+      { question: "ما الذي يحرك السهم على الشاشة؟", a: "الفأرة", b: "لوحة المفاتيح", correct: "a" }
+    ]
+  };
+  
+  let currentLang = "en";
+  let currentQuiz = 0;
+  let score = 0;
+  
+  const quiz = document.getElementById('quiz');
+  const answerEls = document.querySelectorAll('.answer');
+  const questionEl = document.getElementById('question');
+  const a_text = document.getElementById('a_text');
+  const b_text = document.getElementById('b_text');
+  const submitBtn = document.getElementById('submit');
+  const langToggle = document.getElementById('langToggle');
+  const resultContainer = document.getElementById('result');
+  
+  function loadQuiz() {
+    deselectAnswers();
+    const currentQuizData = quizData[currentLang][currentQuiz];
+    questionEl.innerText = currentQuizData.question;
+    a_text.innerText = currentQuizData.a;
+    b_text.innerText = currentQuizData.b;
+  }
+  
+  function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false);
+  }
+  
+  function getSelected() {
+    let answer;
+    answerEls.forEach(answerEl => {
+      if (answerEl.checked) {
+        answer = answerEl.id;
+      }
+    });
+    return answer;
+  }
+  
+  langToggle.addEventListener("click", () => {
+    currentLang = currentLang === "en" ? "ar" : "en";
+    loadQuiz();
+  });
+  
+  submitBtn.addEventListener('click', () => {
+    const answer = getSelected();
+    if (answer) {
+      if (answer === quizData[currentLang][currentQuiz].correct) {
+        score++;
+      }
+      currentQuiz++;
+      if (currentQuiz < quizData[currentLang].length) {
+        loadQuiz();
+      } else {
+        showResult();
+      }
+    }
+  });
+  
+  function showResult() {
+    quiz.innerHTML = `<div class='result-container'>
+        <h2>${currentLang === "en" ? `Correct Answers: ${score}/${quizData[currentLang].length}` : `إجاباتك الصحيحة: ${score}/${quizData[currentLang].length}`}</h2>
+        <button onclick="window.location.href='finy.html'" class='end-btn'>${currentLang === "en" ? "Finish" : "انتهى"}</button>
+      </div>`;
+  }
+  function showResult() {
+    let stars = '';
+    let currentStars = 0;
+  
+    // إنشاء العنصر الأساسي للنتيجة
+    quiz.innerHTML = `
+      <div class='result-container'>
+       
+        <div class='stars-container'></div>
+        <div class='celebration'></div>
+       <button onclick="window.location.href='finy.html'" class='end-btn'>${currentLang === "en" ? "Finish" : "انتهى"}</button>
+      </div>`;
+  
+    const starsContainer = document.querySelector('.stars-container');
+  
+    // دالة لعرض النجوم تدريجيًا
+    function addStar() {
+      if (currentStars < score) {
+        stars += '<span class="star">  <i class="fa-solid fa-star"></i></span>';
+        starsContainer.innerHTML = stars;
+        currentStars++;
+      } else {
+        clearInterval(starInterval); // توقف عند الوصول إلى عدد النجوم المطلوب
+      }
+    }
+  
+    // بدء عرض النجوم كل 500 ميلي ثانية
+    const starInterval = setInterval(addStar, 500);
+  
+    document.body.classList.add("celebrate");
+    
+  }
+  
+  loadQuiz();
+  </script>
+
+</body>
+</html>

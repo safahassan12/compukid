@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شهادة تقدير</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        .certificate {
+    width: 80%;
+    max-width: 600px;
+    min-height: 400px;
+    margin: 20px auto;
+    position: relative;
+    background: url('White Colorful Animated Playful Kindergarten Graduation Certificate (2).png') no-repeat center top;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+        .name {
+            position: absolute;
+            margin-top: 90px;
+            margin-left: 200px;
+            margin-right: 2px;
+            transform: translate(-50%, -50%);
+            font-size: 40px;
+            font-weight: bold;
+            color: #705f4a;
+            font-size: 23px;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+            
+        }
+        .hidden {
+            display: none;
+        }
+        .print-button {
+            margin-top: 20px;
+            margin-right: 530px;
+            font-size: 16px;
+            color: #333;
+            border: none;
+            
+        }
+        @media print {
+            .print-button, .input-container {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="input-container">
+        <label for="studentName"></label>
+        <input type="text" id="studentName" placeholder="child Name" style="width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;">
+        <button onclick="generateCertificate()" style="width: 100%;
+        padding: 10px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;">إنشاء شهادة</button>
+    </div>
+    <div id="certificate" class="certificate hidden">
+        <p class="name" id="studentDisplayName"></p>
+        <button class="print-button" onclick="window.print()"><i class="fa fa-print"></i>
+        </button>
+    </div>
+    <script>
+        function generateCertificate() {
+            var name = document.getElementById('studentName').value;
+            if(name.trim() !== "") {
+                document.getElementById('studentDisplayName').innerText = name;
+                document.getElementById('certificate').classList.remove('hidden');
+            } else {
+                alert("يرجى إدخال اسم الطفل!");
+            }
+        }
+    </script>
+</body>
+</html>

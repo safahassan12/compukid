@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مشغل الفيديو</title>
+    <style>
+        body {
+            
+            background-image: url('Frame (11).png'); /* ضع رابط الخلفية هنا */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin-top: -110px;
+            background-size: 107% 140%;
+            font-family: 'Nunito', sans-serif;
+    
+        }
+        video {
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+           margin-top: 120px;
+        }
+        .controls {
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .play {
+            background-color: #ffd700;
+            color: white;
+        }
+        .pause {
+            background-color: #af3dc9;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    
+    <video id="myVideo" src="بطبوط وتنظيم الملفات.mp4" controls></video>
+    <div class="controls">
+        <button class="play" onclick="goToPage('cer2.html')"> →</button>
+        <button class="pause" onclick="goToPage('p7.html')">   ←</button>
+    </div>
+    <script>
+        function goToPage(page) {
+            window.location.href = page;
+        }
+    </script>
+</body>
+</html>

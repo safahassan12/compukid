@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Selection</title>
+    
+
+    <!-- مكتبة FontAwesome للأيقونات -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&family=Nunito:wght@400;700&family=Fredoka+One&family=Quicksand:wght@400;600&family=Comic+Neue:wght@400;700&family=Cairo:wght@400;700&display=swap');
+
+
+    body {
+            background: url('background.png') no-repeat center center/cover; /* ضع رابط الخلفية هنا */
+            font-family: 'Nunito', Arial, sans-serif;
+            text-align: center;
+            color: #FFD700; /* لون النص */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-size: 100%  106%;
+            display: flex;
+
+        }
+       
+
+        .buttons-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+            opacity: 70%;
+        }
+        p{
+          font-size: 29px;
+        }
+
+        .button {
+            width: 100px;
+            height: 60px;
+            background-color: #E1C8ED;
+            border: none;
+            border-radius: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: rgb(73, 3, 73);
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .button.selected {
+            background-color: #A35DC1; /* لون مختلف للزر المختار */
+            color: white;
+        }
+
+        .continue-btn {
+            width: 150px;
+            height: 50px;
+            background-color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+          
+        }
+
+        .continue-btn:hover {
+            background-color: #F3E5F5;
+        }
+        
+        
+        .lang-button {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #333;
+            position: absolute;
+            top: 20px;
+            left: 20px; /* وضع الزر في أقصى يسار الصفحة */
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+        
+        </style>
+    <!-- زر تغيير اللغة -->
+    <button id="langToggle" class="lang-button">
+        <i class="fas fa-globe"></i>
+    </button>
+
+    <p class="f" data-translate="question">What is your child's age?</p> 
+    <div class="buttons-container">
+        <button class="button" onclick="selectButton(this)" data-translate="age1">1 Year</button>
+        <button class="button" onclick="selectButton(this)" data-translate="age2">2 Year</button>
+        <button class="button" onclick="selectButton(this)" data-translate="age3">3 Year</button>
+        <button class="button" onclick="selectButton(this)" data-translate="age4">4 Year</button>
+        <button class="button" onclick="selectButton(this)" data-translate="age5">5 Year</button>
+        <button class="button" onclick="selectButton(this)" data-translate="age6">6 Year</button>
+        <button class="button" onclick="selectButton(this)" data-translate="age7">7+ Year</button>
+    </div>
+
+    <a href="p4.html">
+        <button class="continue-btn" onclick="submitForm()" data-translate="continue">Continue</button>
+    </a>
+  
+    <script>document.addEventListener("DOMContentLoaded", function () {
+        const translations = {
+            "en": {
+                "question": "What is your child's age?",
+                "age1": "1 Year",
+                "age2": "2 Year",
+                "age3": "3 Year",
+                "age4": "4 Year",
+                "age5": "5 Year",
+                "age6": "6 Year",
+                "age7": "7+ Year",
+                "continue": "Continue"
+            },
+            "ar": {
+                "question": "ما هو عمر طفلك؟",
+                "age1": "سنة واحدة",
+                "age2": "سنتان",
+                "age3": "3 سنوات",
+                "age4": "4 سنوات",
+                "age5": "5 سنوات",
+                "age6": "6 سنوات",
+                "age7": "7 سنوات فأكثر",
+                "continue": "متابعة"
+            }
+        };
+    
+        const langToggleButton = document.getElementById("langToggle");
+        let currentLang = localStorage.getItem("lang") || "en";
+        updateLanguage(currentLang);
+    
+        function updateLanguage(lang) {
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+    
+            document.querySelectorAll("[data-translate]").forEach(element => {
+                const key = element.getAttribute("data-translate");
+                element.textContent = translations[lang][key];
+            });
+    
+            localStorage.setItem("lang", lang);
+        }
+    
+        function toggleLanguage() {
+            currentLang = currentLang === "en" ? "ar" : "en";
+            updateLanguage(currentLang);
+        }
+    
+        langToggleButton.addEventListener("click", toggleLanguage);
+    });
+    
+            let selectedButton = null;
+    
+            function selectButton(button) {
+                if (selectedButton) {
+                    selectedButton.classList.remove("selected");
+                }
+                selectedButton = button;
+                button.classList.add("selected");
+            }
+      </script>
+
+</body>
+</html>

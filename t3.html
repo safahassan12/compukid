@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+             align-items: center; 
+            height: 100vh;
+            background-color: wheat;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-top:250px;
+            width: 300px;
+            height: 350px;
+            margin-top: 40px;
+        }
+        .task {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f3f3f3;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            height: 40px;
+        }
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            appearance: none;
+            border: 2px solid #ccc;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        input[type="checkbox"]:checked {
+            background-color: #ffcc00;
+            border-color: #ffcc00;
+        }
+        button {
+            background-color: #ffcc00;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 200px;
+            height: 60px;
+            border-radius: 20px;
+        }
+        .line{
+            font-size: 18px;
+            font-family:  'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        .t{
+            padding-left: 0px;
+            margin-right: 130px;
+            
+            font-size: 18px;
+            font-family:  'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        
+                /* زر تغيير اللغة */
+                .lang-button {
+                    
+                    background: none;
+                    border: none;
+                    font-size: 24px;
+                    cursor: pointer;
+                    color: #333;
+                    position: absolute;
+                    top: 15px;
+                    left: 220px; /* وضع الزر في أقصى يسار الصفحة */
+                    transition: transform 0.3s ease, color 0.3s ease;
+                    margin-right: 200px;
+                
+                }
+                
+        .q{
+            width: 100px;
+            height: 100px;
+            margin-top: 30px;
+        
+        }
+        .f{
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 26px;
+            margin-top: 50px;
+        }</style>
+</head>
+<body>
+
+    <!-- زر تغيير اللغة -->
+    <button id="langToggle" class="lang-button">
+        <i class="fas fa-globe"></i>
+    </button>
+   
+    <div class="container">
+      
+        <p class="f"> Ask an adult to show you how to turn on a computer, then try to copy the steps yourself.</p>
+        <img src="img\checklist_9086471.png" class="q">
+       
+    </div>
+<script>document.addEventListener("DOMContentLoaded", function () {
+    const langToggle = document.getElementById("langToggle");
+    const textElement = document.querySelector(".f");
+    
+    const translations = {
+        en: "Ask an adult to show you how to turn on a computer, then try to copy the steps yourself.",
+        ar: "اطلب من شخص بالغ أن يريك كيف يتم تشغيل الكمبيوتر، ثم حاول تقليد الخطوات بنفسك."
+    };
+    
+    let currentLang = "en";
+    
+    langToggle.addEventListener("click", function () {
+        currentLang = currentLang === "en" ? "ar" : "en";
+        textElement.textContent = translations[currentLang];
+    });
+});
+</script>
+    
+</body>
+</html>

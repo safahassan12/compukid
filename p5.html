@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Carousel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&family=Nunito:wght@400;700&family=Fredoka+One&family=Quicksand:wght@400;600&family=Comic+Neue:wght@400;700&family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+
+
+    <!-- مكتبة FontAwesome للأيقونات -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+<style>
+    
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+       
+    font-family: 'Nunito', sans-serif;
+
+
+    }
+
+    body {
+        background: url('qback2.png') no-repeat center center/cover; /* ضع رابط الخلفية هنا */
+       
+        text-align: center;
+        color: #FFD700; /* لون النص */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background-size: 100%  106%;
+        display: flex;
+        
+    }
+
+    .carousel-container {
+        position: relative;
+        width: 250px;
+        height: 250px;
+        background: white;
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+        margin-top: 250px;
+    }
+
+    h2 {
+        color: #4c1d95;
+        font-size: 18px;
+        margin-top: 50px;
+    }
+
+    p {
+        color: #6b7280;
+        font-size: 14px;
+        margin-top: 10px;
+    }
+
+    .dots {
+        display: flex;
+        justify-content: center;
+        margin-top: 15px;
+    }
+
+    .dot {
+        width: 8px;
+        height: 8px;
+        margin: 0 3px;
+        background: #ccc;
+        border-radius: 50%;
+        transition: background 0.3s;
+    }
+
+    .dot.active {
+        background: #f97316;
+    }
+
+    .next-btn {
+        position: absolute;
+        bottom: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 40px;
+        height: 40px;
+        background: #f97316;
+        color: white;
+        font-size: 20px;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .hidden {
+        transform: translateX(50px);
+        opacity: 0;
+    }
+    .lang-button {
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: #333;
+        position: absolute;
+        top: 20px;
+        left: 20px; /* وضع الزر في أقصى يسار الصفحة */
+        transition: transform 0.3s ease, color 0.3s ease;
+    }</style>
+    <!-- زر تغيير اللغة -->
+    <button id="langToggle" class="lang-button">
+        <i class="fas fa-globe"></i>
+    </button>
+
+    <div class="carousel-container" id="card">
+        <h2 id="title" data-translate="title1">Welcome Our Future Programmer</h2>
+        <p id="text" data-translate="text1">You can learn anytime</p>
+        <div class="dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+        <button class="next-btn" onclick="nextCard()">→</button>
+    </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+  const translations = {
+      "en": {
+          "title1": "Welcome Our Future Programmer",
+          "text1": "You can learn anytime",
+          "title2": "Interesting QUIZ Awaits You",
+          "text2": "Simple quiz to determine the child's level",
+          "title3": "Let's Start the First Step in Our Adventure",
+          "text3": "Click to start"
+      },
+      "ar": {
+          "title1": "مرحباً بمبرمجنا المستقبلي",
+          "text1": "يمكنك التعلم في أي وقت",
+          "title2": "اختبار شيق في انتظارك",
+          "text2": "اختبار بسيط لتحديد مستوى الطفل",
+          "title3": "لنبدأ أول خطوة في مغامرتنا",
+          "text3": "اضغط للبدء"
+      }
+  };
+
+  const langToggleButton = document.getElementById("langToggle");
+  let currentLang = localStorage.getItem("lang") || "en";
+  let index = 0; // لتتبع الكارد الحالي
+
+  function updateLanguage(lang) {
+      document.documentElement.lang = lang;
+      document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+      currentLang = lang;
+      localStorage.setItem("lang", lang);
+      updateCardContent(); // تحديث الكارد الحالي عند تغيير اللغة
+  }
+
+  function toggleLanguage() {
+      currentLang = currentLang === "en" ? "ar" : "en";
+      updateLanguage(currentLang);
+  }
+
+  langToggleButton.addEventListener("click", toggleLanguage);
+
+  function updateCardContent() {
+      const title = document.getElementById("title");
+      const text = document.getElementById("text");
+
+      title.textContent = translations[currentLang][`title${index + 1}`];
+      text.textContent = translations[currentLang][`text${index + 1}`];
+  }
+
+  function nextCard() {
+      const card = document.getElementById("card");
+      const title = document.getElementById("title");
+      const text = document.getElementById("text");
+      const dots = document.querySelectorAll(".dot");
+
+      // إذا كان آخر كارد، انتقل إلى صفحة أخرى
+      if (index === 2) {
+          window.location.href = "p6.html"; // استبدل "page.html" بالرابط المطلوب
+          return;
+      }
+
+      // إخفاء الكارد مؤقتًا للتأثير البصري
+      card.classList.add("hidden");
+
+      setTimeout(() => {
+          index = (index + 1) % 3; // التنقل بين 3 كروت
+
+          title.textContent = translations[currentLang][`title${index + 1}`];
+          text.textContent = translations[currentLang][`text${index + 1}`];
+
+          // تحديث النقاط (dots)
+          dots.forEach((dot, i) => {
+              dot.classList.toggle("active", i === index);
+          });
+
+          // إظهار الكارد بعد التحديث
+          card.classList.remove("hidden");
+      }, 500);
+  }
+
+  // تحديث النصوص بناءً على اللغة عند تحميل الصفحة
+  updateLanguage(currentLang);
+
+  // جعل nextCard() متاحًا في HTML
+  window.nextCard = nextCard;
+});
+
+</script>
+</body>
+</html>

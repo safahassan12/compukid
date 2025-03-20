@@ -1,0 +1,46 @@
+body {
+    font-family:  'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;      display: flex;
+    /* background: url('ph\ of\ quizzes.jpg') no-repeat center center fixed; */
+    background-color:  #AC64BD;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    margin-top: -40px;
+}
+.container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 300px;
+    height: 500px;
+    overflow-y: auto;
+    margin-top: 50px;
+}
+
+.quiz-list {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
+.quiz-item {
+    background: #eee;
+    padding: 15px;
+    margin: 5px 0;
+    text-decoration: none;
+    color: black;
+    border-radius: 5px;
+    display: block;
+}
+.quiz-item:hover {
+    background: #ddd;
+}
+.im{
+    width: 150px;
+    height: 70px;
+   
+}
